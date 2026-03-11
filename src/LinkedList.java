@@ -56,7 +56,7 @@ public class LinkedList<T> {
     return false;
   }
 
-  private void insertNodeAfter(LinkedListNode<T> currentNode, LinkedListNode<T> newNode) {
+  public void insertNodeAfter(LinkedListNode<T> currentNode, LinkedListNode<T> newNode) {
     if (head == null) {
       this.head = newNode;
       this.tail = newNode;
@@ -77,6 +77,7 @@ public class LinkedList<T> {
     while (current != null) {
       if (current.data.equals(data)) {
         removeNodeAfter(previous);
+        return true;
       }
       previous = current;
       current = current.next;
@@ -84,8 +85,48 @@ public class LinkedList<T> {
     return false;
   }
 
-  // TODO: Finish implementing method below
   public void removeNodeAfter(LinkedListNode<T> node) {
+    if (node == null && head != null) {
+      head = head.next;
+      if (head == null) {
+        tail = null;
+      }
+    } else if (node.next != null) {
+      LinkedListNode<T> nextNode = node.next.next;
+      node.next = nextNode;
+      if (nextNode == null) {
+        tail = node;
+      }
+    }
+  }
 
+  // Size opertaions
+
+  public int size() {
+    if (this.head == null) {
+      return 0;
+    }
+    LinkedListNode<T> currentNode = this.head;
+    int size = 0;
+    while (currentNode != null) {
+      size++;
+      currentNode = currentNode.next;
+    }
+    return size;
+  }
+
+  // Traversal operations
+  // Not sure what you meant by traversal opertations here, so I am just going to
+  // create the print method
+
+  public void print() {
+    if (this.head == null) {
+      return;
+    }
+    LinkedListNode<T> currentNode = this.head;
+    while (currentNode != null) {
+      System.out.println(currentNode.data);
+      currentNode = currentNode.next;
+    }
   }
 }
