@@ -125,8 +125,9 @@ public class LinkedList<T> {
     }
     LinkedListNode<T> currentNode = this.head;
     while (currentNode != null) {
-      System.out.println(currentNode.data);
+      System.out.print(currentNode.data + " ");
       currentNode = currentNode.next;
     }
+    System.out.println();
   }
 }
