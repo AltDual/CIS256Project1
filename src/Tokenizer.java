@@ -3,8 +3,6 @@ import java.io.FileNotFoundException;
 import java.io.File;
 
 public class Tokenizer {
-  // TODO: Construtor with filestream in, and a method to create a linked list of
-  // the words
   private final String fileName;
 
   public Tokenizer(String fileName) {
@@ -17,10 +15,12 @@ public class Tokenizer {
     try (Scanner scnr = new Scanner(f)) {
       while (scnr.hasNext()) {
         String s = scnr.next();
+        s.replaceAll("\\p{Punct}", "");
+        s.toLowerCase();
         stringList.append(s);
       }
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+      System.err.println("File not found " + fileName);
     }
     return stringList;
   }
