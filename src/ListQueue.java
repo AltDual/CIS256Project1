@@ -12,6 +12,7 @@ public class ListQueue<T> extends LinkedList<T> {
   }
 
   public T dequeue() {
+    if (head == null) return null;
     T data = head.data;
     this.head = head.next;
     if (head == null) {
@@ -21,6 +22,7 @@ public class ListQueue<T> extends LinkedList<T> {
   }
 
   public T peek() {
+    if (head == null) return null;
     return head.data;
   }
 
