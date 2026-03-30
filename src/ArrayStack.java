@@ -35,14 +35,20 @@ public class ArrayStack<T> {
   }
 
   public T pop() {
+    if (length <= 0) {
+      return null;
+    }
     length--;
     return stack[length];
   }
 
   public T peek() {
-    return stack[stack.length - 1];
+    if (length <= 0) {
+      return null;
+    }
+    return stack[length - 1];
   }
-
+  
   private void resize() {
     T[] newArray = (T[]) new Object[stack.length * 2];
     for (int i = 0; i < length; i++) {
