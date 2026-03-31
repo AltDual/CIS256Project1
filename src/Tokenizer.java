@@ -15,8 +15,8 @@ public class Tokenizer {
     try (Scanner scnr = new Scanner(f)) {
       while (scnr.hasNext()) {
         String s = scnr.next();
-        s.replaceAll("\\p{Punct}", "");
-        s.toLowerCase();
+        s = s.replaceAll("\\p{Punct}", "");
+        s = s.toLowerCase();
         stringList.append(s);
       }
     } catch (FileNotFoundException e) {
