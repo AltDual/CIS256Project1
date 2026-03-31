@@ -94,6 +94,5 @@ public class TokenizerTests {
         LinkedList<String> l = t.tokenize();
         l.print();
         assertNull(l.head);
-   }
-   
+   } 
 }
