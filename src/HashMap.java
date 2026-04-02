@@ -14,7 +14,7 @@ public class HashMap<K, V> {
   private Item<K, V>[] table;
 
   public HashMap(int capacity) {
-    table = (Item<K, V>[]) new Object[capacity];
+    table = (Item<K, V>[]) new Item[capacity];
   }
 
   public HashMap() {
