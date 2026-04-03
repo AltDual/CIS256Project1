@@ -16,10 +16,16 @@ public class AVLNode<K extends Comparable<K>,V> extends BSTMapNode<K,V> {
     public boolean replaceChild(AVLNode<K,V> currentChild, AVLNode<K,V> newChild) {
         if (left == currentChild) {
             left = newChild;
+            if (newChild != null) {
+                newChild.parent = this; 
+            }
             return true;
         }
         else if (right == currentChild) {
             right = newChild;
+            if (newChild != null) {
+                newChild.parent = this;
+            }
             return true;
         }
         

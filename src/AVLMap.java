@@ -10,7 +10,11 @@ public class AVLMap<K extends Comparable<K>,V> extends BSTMap<K,V> {
         AVLNode<K,V> rightLeftChild = rightChild.left;
         
         node.right = rightLeftChild;
+        if (rightLeftChild != null) {
+            rightLeftChild.parent = node;
+        }
         rightChild.left = node;
+        node.parent = rightChild;
         if (parent != null) {
             parent.replaceChild(node, rightChild);
         } else {
@@ -25,7 +29,11 @@ public class AVLMap<K extends Comparable<K>,V> extends BSTMap<K,V> {
         AVLNode<K,V> leftRightChild = leftChild.right;
         
         node.left = leftRightChild;
+        if (leftRightChild != null) {
+            leftRightChild.parent = node;
+        }
         leftChild.right = node;
+        node.parent = leftChild;
         if (parent != null) {
             parent.replaceChild(node, leftChild);
         } else {

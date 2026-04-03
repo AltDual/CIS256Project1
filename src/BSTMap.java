@@ -68,19 +68,25 @@ public class BSTMap<K extends Comparable<K>, V> {
         } else if (nodeToRemove.left != null && nodeToRemove.right == null) {
           if (parent == null) {
             root = nodeToRemove.left;
+            if (root != null) root.parent = null;
           } else if (parent.left == nodeToRemove) {
             parent.left = nodeToRemove.left;
+            parent.left.parent = parent;
           } else {
             parent.right = nodeToRemove.left;
+            parent.right.parent = parent;
           }
           return true;
         } else if (nodeToRemove.left == null && nodeToRemove != null) {
           if (parent == null) {
             root = nodeToRemove.right;
+            if (root != null) root.parent = null;
           } else if (parent.left == nodeToRemove) {
             parent.left = nodeToRemove.right;
+            parent.left = parent;
           } else {
             parent.right = nodeToRemove.right;
+            parent.right.parent = parent;
           }
           return true;
         } else {
