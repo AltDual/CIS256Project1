@@ -23,9 +23,6 @@ public class PerformanceTest {
     if (j != -1 && words[i].equals(target)) {
       System.out.println("Binary Search Passed!");
     }
-
-
-    
   }
 
   public static int testBinarySearch(String[] words, String target) {
