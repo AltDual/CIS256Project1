@@ -7,27 +7,30 @@ public class App {
     System.out.println("Program Initialized");
     HashMap<String, HashSet<String>> documents = new HashMap<String, HashSet<String>>();
     processDocuments(documents);
+    Scanner scnr = new Scanner(System.in);
     while (true) {
       System.out.println("What word do you want to search for: ");
-      queryDocuments(documents);
+      queryDocuments(documents, scnr);
     }
   }
 
-  public static void queryDocuments(HashMap<String, HashSet<String>> documents) {
-    Scanner scnr = new Scanner(System.in);
+  public static void queryDocuments(HashMap<String, HashSet<String>> documents, Scanner scnr) {
     ArrayList<String> strings = new ArrayList<String>();
     String s = scnr.nextLine();
     Scanner stringScnr = new Scanner(s);
     while (stringScnr.hasNext()) {
       strings.add(stringScnr.next());
     }
-    HashSet<String> docsToReturn = new HashSet<String>();
-    for (int i = 0; i < strings.size(); i++) {
-      HashSet<String> set = new HashSet<String>(documents.search(strings.get(i)));
-      docsToReturn.retainAll(set);
+    if (documents.search(strings.get(0)) != null) {
+      HashSet<String> docsToReturn = new HashSet<String>(documents.search(strings.get(0)));
+      for (int i = 1; i < strings.size(); i++) {
+        HashSet<String> set = new HashSet<String>(documents.search(strings.get(i)));
+        docsToReturn.retainAll(set);
+      }
+      System.out.println(docsToReturn);
+    } else {
+      System.out.println("[]");
     }
-    System.out.println(docsToReturn);
-    scnr.close();
     stringScnr.close();
   }
 
