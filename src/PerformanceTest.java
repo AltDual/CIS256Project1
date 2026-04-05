@@ -8,7 +8,7 @@ public class PerformanceTest {
     System.out.println("Generated " + words.length + " unique words.");
     testMergeSort(words);
     testInsertationSort(words1);
-    
+
     System.out.println("Testing searching algorithms");
     words = generateWords(50000);
     Random rand = new Random();
@@ -37,8 +37,9 @@ public class PerformanceTest {
       r.put(current.data, 1);
       h.insert(current.data, current.data);
       b.put(current.data, 1);
+      current = current.next;
     }
-    testAVLSearch(a, "watermelon"); 
+    testAVLSearch(a, "watermelon");
     testBSTSearch(b, "watermelon");
     testHashMapSearch(h, "watermelon");
     testRBTSearch(r, "watermelon");
@@ -54,7 +55,7 @@ public class PerformanceTest {
       System.out.println("AVL pass");
     }
   }
-  
+
   public static void testRBTSearch(RBTMap<String, Integer> r, String target) {
     long startTime = System.nanoTime();
     RBTNode<String, Integer> node = r.search(target);
@@ -65,6 +66,7 @@ public class PerformanceTest {
       System.out.println("RBT pass");
     }
   }
+
   public static void testHashMapSearch(HashMap<String, String> h, String target) {
     long startTime = System.nanoTime();
     String node = h.search(target);
@@ -75,6 +77,7 @@ public class PerformanceTest {
       System.out.println("HashMap pass");
     }
   }
+
   public static void testBSTSearch(BSTMap<String, Integer> b, String target) {
     long startTime = System.nanoTime();
     BSTMapNode<String, Integer> node = b.get(target);
@@ -85,6 +88,7 @@ public class PerformanceTest {
       System.out.println("BSTMap pass");
     }
   }
+
   public static int testBinarySearch(String[] words, String target) {
     long startTime = System.nanoTime();
     int index = SearchingUtils.binarySearch(words, target);
@@ -93,6 +97,7 @@ public class PerformanceTest {
     System.out.println("Time for binarySearch to search:" + duration);
     return index;
   }
+
   public static int testLinearSearch(String[] words, String target) {
     long startTime = System.nanoTime();
     int index = SearchingUtils.linearSearch(words, target);
@@ -101,6 +106,7 @@ public class PerformanceTest {
     System.out.println("Time for linearSearch to search:" + duration);
     return index;
   }
+
   public static void testMergeSort(String[] words) {
     long startTime = System.nanoTime();
     SortingUtils.mergeSort(words, 0, words.length - 1);
@@ -116,20 +122,21 @@ public class PerformanceTest {
     long duration = endTime - startTime;
     System.out.println("Time for insertationSort to sort " + words.length + " words: " + duration);
   }
+
   public static String[] generateWords(int target) {
     Set<String> uniqueSet = new HashSet<>();
-        Random random = new Random();
-        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    Random random = new Random();
+    String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-        while (uniqueSet.size() < target) {
-            StringBuilder sb = new StringBuilder();
-            int length = 5 + random.nextInt(6); 
-            for (int i = 0; i < length; i++) {
-                sb.append(alphabet.charAt(random.nextInt(alphabet.length())));
-            }
-            uniqueSet.add(sb.toString());
-        }
+    while (uniqueSet.size() < target) {
+      StringBuilder sb = new StringBuilder();
+      int length = 5 + random.nextInt(6);
+      for (int i = 0; i < length; i++) {
+        sb.append(alphabet.charAt(random.nextInt(alphabet.length())));
+      }
+      uniqueSet.add(sb.toString());
+    }
 
-        return uniqueSet.toArray(new String[0]); 
+    return uniqueSet.toArray(new String[0]);
   }
 }
