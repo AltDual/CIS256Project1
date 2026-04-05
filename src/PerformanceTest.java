@@ -23,8 +23,68 @@ public class PerformanceTest {
     if (j != -1 && words[i].equals(target)) {
       System.out.println("Binary Search Passed!");
     }
+
+    System.out.println("Testing search between BST, HashMap, AVL, and RBT");
+    Tokenizer t = new Tokenizer("documents/long_sorted.txt");
+    LinkedList<String> l = t.tokenize();
+    LinkedListNode<String> current = l.head;
+    AVLMap<String, Integer> a = new AVLMap<String, Integer>();
+    RBTMap<String, Integer> r = new RBTMap<String, Integer>();
+    HashMap<String, String> h = new HashMap<String, String>();
+    BSTMap<String, Integer> b = new BSTMap<String, Integer>();
+    while (current != null) {
+      a.put(current.data, 1);
+      r.put(current.data, 1);
+      h.insert(current.data, current.data);
+      b.put(current.data, 1);
+    }
+    testAVLSearch(a, "watermelon"); 
+    testBSTSearch(b, "watermelon");
+    testHashMapSearch(h, "watermelon");
+    testRBTSearch(r, "watermelon");
   }
 
+  public static void testAVLSearch(AVLMap<String, Integer> a, String target) {
+    long startTime = System.nanoTime();
+    AVLNode<String, Integer> node = a.get(target);
+    long endTime = System.nanoTime();
+    long duration = endTime - startTime;
+    System.out.println("Time for AVLTree to search:" + duration);
+    if (node.key.equals(target)) {
+      System.out.println("AVL pass");
+    }
+  }
+  
+  public static void testRBTSearch(RBTMap<String, Integer> r, String target) {
+    long startTime = System.nanoTime();
+    RBTNode<String, Integer> node = r.search(target);
+    long endTime = System.nanoTime();
+    long duration = endTime - startTime;
+    System.out.println("Time for RBTTree to search:" + duration);
+    if (node.key.equals(target)) {
+      System.out.println("RBT pass");
+    }
+  }
+  public static void testHashMapSearch(HashMap<String, String> h, String target) {
+    long startTime = System.nanoTime();
+    String node = h.search(target);
+    long endTime = System.nanoTime();
+    long duration = endTime - startTime;
+    System.out.println("Time for HashMap to search:" + duration);
+    if (node.equals(target)) {
+      System.out.println("HashMap pass");
+    }
+  }
+  public static void testBSTSearch(BSTMap<String, Integer> b, String target) {
+    long startTime = System.nanoTime();
+    BSTMapNode<String, Integer> node = b.get(target);
+    long endTime = System.nanoTime();
+    long duration = endTime - startTime;
+    System.out.println("Time for BSTMap to search:" + duration);
+    if (node.key.equals(target)) {
+      System.out.println("BSTMap pass");
+    }
+  }
   public static int testBinarySearch(String[] words, String target) {
     long startTime = System.nanoTime();
     int index = SearchingUtils.binarySearch(words, target);
