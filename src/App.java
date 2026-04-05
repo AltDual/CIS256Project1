@@ -9,17 +9,70 @@ public class App {
     processDocuments(documents);
     Scanner scnr = new Scanner(System.in);
     while (true) {
-      System.out.println("What word do you want to search for: ");
-      queryDocuments(documents, scnr);
+      System.out.println("Press Q to query words, D to search through docmuents, and E to exit");
+      if (scnr.nextLine().equalsIgnoreCase("q")) {
+        System.out.println("What word do you want to search for: ");
+        queryDocuments(documents, scnr);
+      } else if (scnr.nextLine().equalsIgnoreCase("d")) {
+        ArrayStack<String> forwardHistory = new ArrayStack<String>();
+        ArrayStack<String> backwardHistory = new ArrayStack<String>();
+        String currentFile = null;
+        while (true) {
+          System.out.println("Type S to look at a document, F to go foward in history, B to go back in history, and E to exit");
+          if (scnr.nextLine().equalsIgnoreCase("e")) {
+            break;
+          }
+
+          if ((scnr.nextLine().equalsIgnoreCase("s"))) {
+            System.out.println("Type in the document you want to search for: ");
+            String nextFile = scnr.nextLine();
+
+            if (currentFile != null) {
+              backwardHistory.push(currentFile);
+            }
+            for (int i = 0; i < forwardHistory.getLength(); i++) {
+              forwardHistory.pop();
+            }
+              
+            Tokenizer t = new Tokenizer("documents/" + currentFile);
+            LinkedList<String> l = t.tokenize();
+            l.print();
+          } else if (scnr.nextLine().equalsIgnoreCase("b")) {
+            if (backwardHistory.getLength() == 0) {
+              System.out.println("No backward history");
+            } else {
+              forwardHistory.push(currentFile);
+              currentFile = backwardHistory.pop();
+              Tokenizer t = new Tokenizer("documents/" + currentFile);
+              LinkedList<String> l = t.tokenize();
+              l.print();
+            }
+          } else if (scnr.nextLine().equalsIgnoreCase("F")) {
+            if (forwardHistory.getLength() == 0) {
+              System.out.println("No forward history");
+            } else {
+              backwardHistory.push(currentFile);
+              currentFile = forwardHistory.pop();
+              Tokenizer t = new Tokenizer("documents/" + currentFile);
+              LinkedList<String> l = t.tokenize();
+              l.print();
+            }
+          } 
+        }
+      } else if (scnr.nextLine().equalsIgnoreCase("e")) {
+        break;
+      } else {
+        continue;
+      }
     }
   }
-
+  
   public static void queryDocuments(HashMap<String, HashSet<String>> documents, Scanner scnr) {
     ArrayList<String> strings = new ArrayList<String>();
     String s = scnr.nextLine();
     Scanner stringScnr = new Scanner(s);
     while (stringScnr.hasNext()) {
-      strings.add(stringScnr.next());
+      strings.add(stringScnr.next().toLowerCase());
     }
     if (documents.search(strings.get(0)) != null) {
       HashSet<String> docsToReturn = new HashSet<String>(documents.search(strings.get(0)));
